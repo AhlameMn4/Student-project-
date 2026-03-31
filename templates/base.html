@@ -1,77 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Student Hub{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: "#ecf3ff",
+                            100: "#dde9ff",
+                            200: "#c2d6ff",
+                            300: "#9cb9ff",
+                            400: "#7592ff",
+                            500: "#465fff",
+                            600: "#3641f5",
+                            700: "#2a31d8"
+                        }
+                    },
+                    fontFamily: {
+                        outfit: ["Outfit", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
     <style>
         body {
-            background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 50%, #020617 100%);
+            min-height: 100%;
+            font-family: "Outfit", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(70, 95, 255, 0.12), transparent 32%),
+                radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 24%),
+                #f5f7fb;
+            color: #101828;
         }
-        .glass {
-            background: rgba(15, 23, 42, 0.68);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(148, 163, 184, 0.18);
+
+        .panel {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 18px 40px rgba(15, 23, 42, 0.06);
         }
+
+        .sidebar-shell {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.96));
+            backdrop-filter: blur(18px);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            color: #667085;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .nav-link-active {
+            background: #ecf3ff;
+            color: #3641f5;
+        }
+
+        .nav-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.9rem;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #667085;
+        }
+
+        .nav-link-active .nav-icon {
+            border-color: #c2d6ff;
+            color: #3641f5;
+        }
+
+        .soft-badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #667085;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 1rem;
+            padding: 0.9rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #465fff;
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(70, 95, 255, 0.22);
+        }
+
+        .btn-primary:hover {
+            background: #3641f5;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            color: #334155;
+        }
+
+        .btn-secondary:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+            transform: translateY(-1px);
+        }
+
+        .table-shell {
+            overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 18px 40px rgba(15, 23, 42, 0.06);
+        }
+
         .fade-up {
-            animation: fadeUp .4s ease-out;
+            animation: fadeUp 0.35s ease both;
         }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+            color: #0f172a;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #9cb9ff;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(70, 95, 255, 0.12);
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen">
-    <div class="min-h-screen lg:grid lg:grid-cols-[280px_1fr]">
-        {% if request.user.is_authenticated %}
-            <aside class="hidden lg:flex flex-col p-5 border-r border-slate-800/80 bg-slate-950/70">
-                <a href="{% url 'accounts:dashboard' %}" class="text-xl font-bold tracking-wide mb-8 text-cyan-300">
-                    Student Hub
+<body class="min-h-full text-slate-900">
+    {% url 'accounts:dashboard' as dashboard_url %}
+    {% url 'courses:course_list' as course_list_url %}
+    {% url 'courses:material_list' as material_list_url %}
+    {% url 'assignments:assignment_list' as assignment_list_url %}
+    {% url 'communications:announcement_list' as announcement_list_url %}
+    {% url 'communications:calendar_list' as calendar_list_url %}
+    {% url 'ai_assistant:assistant' as assistant_url %}
+
+    {% if request.user.is_authenticated %}
+        <div class="min-h-screen lg:grid lg:grid-cols-[280px_minmax(0,1fr)]">
+            <aside class="sidebar-shell hidden min-h-screen border-r border-slate-200 px-5 py-6 lg:flex lg:flex-col">
+                <a href="{{ dashboard_url }}" class="mb-8 flex items-center gap-3">
+                    <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-500 text-white shadow-lg shadow-brand-200/80">
+                        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 19.5V8.25l8-4.25 8 4.25V19.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M9 19.5v-5h6v5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </span>
+                    <span>
+                        <span class="block text-lg font-bold tracking-tight text-slate-900">Student Hub</span>
+                        <span class="block text-sm text-slate-500">Campus dashboard</span>
+                    </span>
                 </a>
-                <nav class="space-y-2 text-sm">
-                    <a href="{% url 'accounts:dashboard' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Dashboard</a>
-                    <a href="{% url 'courses:course_list' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Courses</a>
-                    <a href="{% url 'courses:material_list' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Materials</a>
-                    <a href="{% url 'assignments:assignment_list' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Assignments</a>
-                    <a href="{% url 'communications:announcement_list' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Announcements</a>
-                    <a href="{% url 'communications:calendar_list' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">Calendar</a>
-                    {% if request.user.role == 'student' %}
-                        <a href="{% url 'ai_assistant:assistant' %}" class="block px-3 py-2 rounded-lg hover:bg-slate-800 transition">AI Assistant</a>
-                    {% endif %}
-                </nav>
-                <div class="mt-auto glass rounded-xl p-3 text-xs text-slate-300">
-                    <p class="font-semibold text-slate-100 mb-1">{{ request.user.full_name }}</p>
-                    <p class="mb-3 capitalize">{{ request.user.role }}</p>
-                    <a href="{% url 'accounts:logout' %}" class="inline-block px-3 py-2 rounded-lg bg-rose-500/20 text-rose-200 hover:bg-rose-500/30 transition">
-                        Logout
-                    </a>
+
+                <div class="space-y-8">
+                    <div>
+                        <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Workspace</p>
+                        <nav class="space-y-1.5">
+                            <a href="{{ dashboard_url }}" class="nav-link {% if request.path == dashboard_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">D</span><span>Dashboard</span>
+                            </a>
+                            <a href="{{ course_list_url }}" class="nav-link {% if request.path == course_list_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">C</span><span>Courses</span>
+                            </a>
+                            <a href="{{ material_list_url }}" class="nav-link {% if request.path == material_list_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">M</span><span>Materials</span>
+                            </a>
+                            <a href="{{ assignment_list_url }}" class="nav-link {% if request.path == assignment_list_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">A</span><span>Assignments</span>
+                            </a>
+                        </nav>
+                    </div>
+
+                    <div>
+                        <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Communication</p>
+                        <nav class="space-y-1.5">
+                            <a href="{{ announcement_list_url }}" class="nav-link {% if request.path == announcement_list_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">N</span><span>Announcements</span>
+                            </a>
+                            <a href="{{ calendar_list_url }}" class="nav-link {% if request.path == calendar_list_url %}nav-link-active{% endif %}">
+                                <span class="nav-icon">K</span><span>Calendar</span>
+                            </a>
+                            {% if request.user.role == 'student' %}
+                                <a href="{{ assistant_url }}" class="nav-link {% if request.path == assistant_url %}nav-link-active{% endif %}">
+                                    <span class="nav-icon">AI</span><span>AI Assistant</span>
+                                </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="panel mt-auto p-5">
+                    <div class="flex items-center gap-3">
+                        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-base font-bold text-brand-600">
+                            {{ request.user.full_name|first|upper }}
+                        </span>
+                        <div class="min-w-0">
+                            <p class="truncate text-sm font-semibold text-slate-900">{{ request.user.full_name }}</p>
+                            <p class="text-sm text-slate-500">{{ request.user.get_role_display }}</p>
+                        </div>
+                    </div>
+                    <a href="{% url 'accounts:logout' %}" class="btn-secondary mt-4 w-full">Logout</a>
                 </div>
             </aside>
-        {% endif %}
-        <div class="flex flex-col min-h-screen">
-            <header class="sticky top-0 z-20 border-b border-slate-800/70 bg-slate-950/80 backdrop-blur px-4 py-4 lg:px-8">
-                <div class="flex items-center justify-between">
-                    <h1 class="text-lg font-semibold tracking-wide">{% block page_title %}Student Hub{% endblock %}</h1>
-                    {% if request.user.is_authenticated %}
-                        <span class="text-sm text-slate-300">{{ request.user.full_name }}</span>
-                    {% endif %}
-                </div>
-            </header>
 
-            <main class="px-4 py-6 lg:px-8 fade-up">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="mb-4 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-3 text-cyan-100">
-                            {{ message }}
+            <div class="min-w-0">
+                <header class="sticky top-0 z-30 border-b border-slate-200/80 bg-slate-50/90 backdrop-blur-xl">
+                    <div class="px-4 py-4 sm:px-6 lg:px-8">
+                        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                            <div>
+                                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-brand-600">Student Hub Workspace</p>
+                                <h1 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">{% block page_title %}Student Hub{% endblock %}</h1>
+                                <p class="mt-2 text-sm text-slate-500">{% block page_subtitle %}Academic operations in one coordinated dashboard.{% endblock %}</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500 shadow-sm md:block">
+                                    Dashboard workspace
+                                </div>
+                                <div class="panel flex items-center gap-3 px-3 py-2 shadow-sm">
+                                    <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-base font-bold text-brand-600">
+                                        {{ request.user.full_name|first|upper }}
+                                    </span>
+                                    <div class="min-w-0">
+                                        <p class="truncate text-sm font-semibold text-slate-900">{{ request.user.full_name }}</p>
+                                        <p class="text-xs uppercase tracking-[0.16em] text-slate-400">{{ request.user.get_role_display }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    {% endfor %}
-                {% endif %}
-                {% block content %}{% endblock %}
-            </main>
+
+                        <div class="mt-4 flex gap-2 overflow-x-auto pb-1 lg:hidden">
+                            <a href="{{ dashboard_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == dashboard_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Dashboard</a>
+                            <a href="{{ course_list_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == course_list_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Courses</a>
+                            <a href="{{ material_list_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == material_list_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Materials</a>
+                            <a href="{{ assignment_list_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == assignment_list_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Assignments</a>
+                            <a href="{{ announcement_list_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == announcement_list_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Announcements</a>
+                            <a href="{{ calendar_list_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == calendar_list_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">Calendar</a>
+                            {% if request.user.role == 'student' %}
+                                <a href="{{ assistant_url }}" class="whitespace-nowrap rounded-2xl border px-4 py-2.5 text-sm font-medium {% if request.path == assistant_url %}border-brand-100 bg-brand-50 text-brand-600{% else %}border-slate-200 bg-white text-slate-500{% endif %}">AI Assistant</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </header>
+                <main class="px-4 py-6 sm:px-6 lg:px-8">
+    {% else %}
+        <div class="min-h-screen lg:grid lg:grid-cols-[1.1fr_minmax(420px,0.9fr)]">
+            <section class="hidden lg:flex lg:flex-col lg:justify-between lg:bg-slate-950 lg:px-12 lg:py-14 lg:text-white" style="background: radial-gradient(circle at top left, rgba(156,185,255,.24), transparent 28%), linear-gradient(160deg, #101828 0%, #111f4d 46%, #3641f5 100%);">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-white backdrop-blur">SH</span>
+                        <div>
+                            <p class="text-lg font-semibold">Student Hub</p>
+                            <p class="text-sm text-white/70">Dashboard-first academic platform</p>
+                        </div>
+                    </div>
+                    <div class="mt-16 max-w-xl">
+                        <p class="text-sm font-semibold uppercase tracking-[0.28em] text-brand-200">Academic Operations</p>
+                        <h2 class="mt-5 text-5xl font-semibold leading-tight">A campus workspace shaped like a modern admin dashboard.</h2>
+                        <p class="mt-5 max-w-lg text-lg leading-8 text-white/75">Courses, assignments, announcements, calendar tracking, and AI support live in one operational interface.</p>
+                    </div>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur">
+                        <p class="text-sm font-semibold">Unified academic surface</p>
+                        <p class="mt-2 text-sm leading-6 text-white/70">Student, professor, and admin views share the same UI language.</p>
+                    </div>
+                    <div class="rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur">
+                        <p class="text-sm font-semibold">Operational clarity</p>
+                        <p class="mt-2 text-sm leading-6 text-white/70">Built around cards, fast tables, and action-focused dashboard layouts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-10">
+                <div class="w-full max-w-xl">
+                    <div class="mb-6 flex items-center gap-3 lg:hidden">
+                        <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-500 text-sm font-bold text-white shadow-lg shadow-brand-200/80">SH</span>
+                        <div>
+                            <p class="text-lg font-semibold text-slate-900">Student Hub</p>
+                            <p class="text-sm text-slate-500">Academic workspace</p>
+                        </div>
+                    </div>
+                    <div class="panel overflow-hidden fade-up">
+                        <div class="border-b border-slate-200 px-8 py-8 sm:px-10">
+                            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-brand-600">Secure Access</p>
+                            <h1 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">{% block auth_title %}Student Hub{% endblock %}</h1>
+                            <p class="mt-3 text-sm leading-6 text-slate-500">{% block auth_subtitle %}Continue into your academic dashboard.{% endblock %}</p>
+                        </div>
+                        <div class="px-8 py-8 sm:px-10">
+    {% endif %}
+
+    {% if messages %}
+        <div class="mb-6 space-y-3">
+            {% for message in messages %}
+                <div class="panel rounded-2xl border-l-4 border-l-brand-500 px-5 py-4 text-sm text-slate-600 shadow-sm">
+                    {{ message }}
+                </div>
+            {% endfor %}
         </div>
+    {% endif %}
+
+    <div class="space-y-6 fade-up">
+        {% block content %}{% endblock %}
     </div>
 
+    {% if request.user.is_authenticated %}
+                </main>
+            </div>
+        </div>
+    {% else %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {% endif %}
 </body>
 </html>

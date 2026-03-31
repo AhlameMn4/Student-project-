@@ -1,18 +1,54 @@
 {% extends "base.html" %}
 {% block title %}Announcements | Student Hub{% endblock %}
 {% block page_title %}Announcements{% endblock %}
+{% block page_subtitle %}Institution, major, and course updates styled as a readable dashboard feed.{% endblock %}
 {% block content %}
-<div class="space-y-4">
-{% for item in announcements %}
-    <div class="glass rounded-2xl p-5">
-        <h3 class="text-lg font-semibold">{{ item.title }}</h3>
-        <p class="text-xs text-slate-400 mt-1">
-            {{ item.created_at|date:"Y-m-d H:i" }} • {{ item.scope|title }} • by {{ item.posted_by.full_name }}
-        </p>
-        <p class="mt-3 text-slate-200">{{ item.content }}</p>
+<section class="grid gap-4 md:grid-cols-3">
+    <div class="panel p-6">
+        <p class="text-sm font-medium text-slate-500">Published items</p>
+        <p class="mt-4 text-4xl font-semibold tracking-tight text-slate-900">{{ announcements|length }}</p>
+        <p class="mt-2 text-sm text-slate-500">Announcements currently visible in your role-based feed.</p>
     </div>
+    <div class="panel p-6">
+        <p class="text-sm font-medium text-slate-500">Delivery model</p>
+        <p class="mt-4 text-2xl font-semibold tracking-tight text-slate-900">Scoped communication</p>
+        <p class="mt-2 text-sm text-slate-500">Each item can target the whole platform, a major, or an individual course.</p>
+    </div>
+    <div class="panel p-6">
+        <p class="text-sm font-medium text-slate-500">Reading surface</p>
+        <p class="mt-4 text-2xl font-semibold tracking-tight text-slate-900">Feed layout</p>
+        <p class="mt-2 text-sm text-slate-500">Announcements now read like an operational stream instead of plain stacked blocks.</p>
+    </div>
+</section>
+
+<section class="space-y-4">
+{% for item in announcements %}
+    <article class="panel p-6">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="soft-badge">{{ item.get_scope_display }}</span>
+                    {% if item.course %}
+                        <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{{ item.course.code }}</span>
+                    {% endif %}
+                    {% if item.major %}
+                        <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{{ item.major.name }}</span>
+                    {% endif %}
+                </div>
+                <h3 class="mt-4 text-2xl font-semibold tracking-tight text-slate-900">{{ item.title }}</h3>
+                <p class="mt-4 text-sm leading-7 text-slate-600">{{ item.content }}</p>
+            </div>
+            <div class="rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-500">
+                <p><span class="font-medium text-slate-700">Posted:</span> {{ item.created_at|date:"M d, Y H:i" }}</p>
+                <p class="mt-1"><span class="font-medium text-slate-700">By:</span> {{ item.posted_by.full_name }}</p>
+            </div>
+        </div>
+    </article>
 {% empty %}
-    <p class="text-slate-400">No announcements available.</p>
+    <div class="panel p-12 text-center">
+        <p class="text-lg font-semibold text-slate-900">No announcements available.</p>
+        <p class="mt-2 text-sm text-slate-500">New communication items will appear here once they are published.</p>
+    </div>
 {% endfor %}
-</div>
+</section>
 {% endblock %}

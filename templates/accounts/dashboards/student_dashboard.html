@@ -1,27 +1,88 @@
 {% extends "base.html" %}
 {% block title %}Student Dashboard{% endblock %}
 {% block page_title %}Student Dashboard{% endblock %}
+{% block page_subtitle %}Track your courses, materials, deadlines, and AI support from one dashboard view.{% endblock %}
 {% block content %}
-<div class="mb-6">
-    <h2 class="text-2xl font-semibold">Welcome {{ request.user.full_name }}</h2>
-    <p class="text-slate-300">Your academic overview and quick actions.</p>
+<div class="grid gap-6 xl:grid-cols-[minmax(0,1.75fr)_minmax(320px,0.95fr)]">
+    <section class="panel relative overflow-hidden p-8">
+        <div class="absolute -right-10 top-0 h-44 w-44 rounded-full bg-brand-100 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-cyan-100 blur-3xl"></div>
+        <div class="relative">
+            <span class="soft-badge">Student Workspace</span>
+            <h2 class="mt-5 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">Welcome back, {{ request.user.full_name }}.</h2>
+            <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
+                Review your academic lane, move quickly between courses and materials, and use the assistant when you need fast guidance.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+                <a href="{% url 'assignments:assignment_list' %}" class="btn-primary">Open assignments</a>
+                <a href="{% url 'courses:course_list' %}" class="btn-secondary">Browse courses</a>
+            </div>
+
+            <div class="mt-8 grid gap-4 md:grid-cols-3">
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
+                    <p class="text-sm font-medium text-slate-500">Major focus</p>
+                    <p class="mt-3 text-xl font-semibold text-slate-900">{{ request.user.student_profile.major.name|default:"Academic track" }}</p>
+                    <p class="mt-2 text-sm text-slate-500">Your learning lane stays visible across the dashboard.</p>
+                </div>
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
+                    <p class="text-sm font-medium text-slate-500">Current semester</p>
+                    <p class="mt-3 text-xl font-semibold text-slate-900">{{ request.user.student_profile.current_semester.name|default:"In progress" }}</p>
+                    <p class="mt-2 text-sm text-slate-500">Keep the active teaching cycle in view as you plan your work.</p>
+                </div>
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
+                    <p class="text-sm font-medium text-slate-500">AI support</p>
+                    <p class="mt-3 text-xl font-semibold text-slate-900">Ready</p>
+                    <p class="mt-2 text-sm text-slate-500">Ask course, assignment, or calendar questions without leaving the workspace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel p-6">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-brand-600">Daily Flow</p>
+        <h3 class="mt-3 text-2xl font-semibold tracking-tight text-slate-900">Keep your study loop tight.</h3>
+        <div class="mt-6 space-y-4">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">1. Scan your latest resources</p>
+                <p class="mt-2 text-sm leading-6 text-slate-500">Move through newly published course materials before deadlines start stacking.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">2. Prioritize active assignments</p>
+                <p class="mt-2 text-sm leading-6 text-slate-500">Use the assignments view as your workload board for TP, TD, homework, and project items.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">3. Ask when context is missing</p>
+                <p class="mt-2 text-sm leading-6 text-slate-500">The assistant can help summarize what matters across academic content and upcoming events.</p>
+            </div>
+        </div>
+    </section>
 </div>
 
-<div class="grid md:grid-cols-3 gap-4">
-    <a href="{% url 'courses:course_list' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
-        <p class="text-slate-400 text-sm">Academic</p>
-        <h3 class="text-lg font-semibold mt-1">Courses</h3>
-        <p class="text-slate-300 mt-2 text-sm">Browse your major and enrolled courses.</p>
+<section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <a href="{% url 'courses:course_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
+        <span class="soft-badge">Academic</span>
+        <h3 class="mt-5 text-xl font-semibold text-slate-900">Courses</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-500">Browse your visible course catalog and keep each module within reach.</p>
+        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Go to courses</span>
     </a>
-    <a href="{% url 'assignments:assignment_list' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
-        <p class="text-slate-400 text-sm">Workload</p>
-        <h3 class="text-lg font-semibold mt-1">Assignments</h3>
-        <p class="text-slate-300 mt-2 text-sm">Track TP/TD/homework deadlines.</p>
+    <a href="{% url 'courses:material_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
+        <span class="soft-badge">Resources</span>
+        <h3 class="mt-5 text-xl font-semibold text-slate-900">Study Materials</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-500">Open PDFs, slides, links, and supporting content from one clean view.</p>
+        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Open materials</span>
     </a>
-    <a href="{% url 'ai_assistant:assistant' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
-        <p class="text-slate-400 text-sm">Smart Guide</p>
-        <h3 class="text-lg font-semibold mt-1">AI Assistant</h3>
-        <p class="text-slate-300 mt-2 text-sm">Get contextual help instantly.</p>
+    <a href="{% url 'assignments:assignment_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
+        <span class="soft-badge">Delivery</span>
+        <h3 class="mt-5 text-xl font-semibold text-slate-900">Assignments</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-500">Track due dates, submission mode, and publication state without extra clicks.</p>
+        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Review workload</span>
     </a>
-</div>
+    <a href="{% url 'ai_assistant:assistant' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
+        <span class="soft-badge">AI Guide</span>
+        <h3 class="mt-5 text-xl font-semibold text-slate-900">Assistant</h3>
+        <p class="mt-3 text-sm leading-6 text-slate-500">Use contextual help when you need a quicker path through academic information.</p>
+        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Ask the assistant</span>
+    </a>
+</section>
 {% endblock %}
