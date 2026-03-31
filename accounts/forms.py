@@ -7,7 +7,7 @@ from .models import StudentProfile, User, UserRole
 
 
 class StudentRegistrationForm(forms.ModelForm):
-    major = forms.ModelChoiceField(queryset=Major.objects.filter(is_active=True))
+    major = forms.ModelChoiceField(queryset=Major.objects.none())
     student_number = forms.CharField(max_length=30)
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
@@ -18,6 +18,7 @@ class StudentRegistrationForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["major"].queryset = Major.objects.filter(is_active=True).order_by("name")
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control"
 
