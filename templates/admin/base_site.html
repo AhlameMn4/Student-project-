@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Student Hub Admin{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'accounts/admin-theme.css' %}">
+{% endblock %}
+
+{% block branding %}
+    <div class="brand-shell">
+        <div class="brand-mark">SH</div>
+        <div>
+            <h1 id="site-name"><a href="{% url 'admin:index' %}">Student Hub Admin</a></h1>
+            <p class="brand-copy">Dark control panel for platform management.</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block nav-global %}
+    <a class="view-site-link" href="{% url 'accounts:dashboard' %}">Back to dashboard</a>
+{% endblock %}

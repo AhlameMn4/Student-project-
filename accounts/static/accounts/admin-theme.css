@@ -1,0 +1,395 @@
+:root {
+    --admin-bg: #020617;
+    --admin-surface: rgba(15, 23, 42, 0.84);
+    --admin-surface-strong: rgba(15, 23, 42, 0.96);
+    --admin-surface-soft: rgba(30, 41, 59, 0.72);
+    --admin-border: rgba(148, 163, 184, 0.16);
+    --admin-text: #e2e8f0;
+    --admin-text-soft: #94a3b8;
+    --admin-brand: #22d3ee;
+    --admin-brand-strong: #38bdf8;
+    --admin-danger: #fb7185;
+    --primary: #22d3ee;
+    --secondary: #0f172a;
+    --accent: #38bdf8;
+    --header-color: #e2e8f0;
+    --header-branding-color: #f8fafc;
+    --header-bg: rgba(2, 6, 23, 0.94);
+    --header-link-color: #a5f3fc;
+    --breadcrumbs-fg: #cbd5e1;
+    --breadcrumbs-link-fg: #a5f3fc;
+    --breadcrumbs-bg: rgba(15, 23, 42, 0.78);
+    --link-fg: #7dd3fc;
+    --link-hover-color: #cffafe;
+    --link-selected-fg: #22d3ee;
+    --hairline-color: rgba(148, 163, 184, 0.14);
+    --border-color: rgba(148, 163, 184, 0.16);
+    --body-fg: #e2e8f0;
+    --body-bg: #020617;
+    --body-quiet-color: #94a3b8;
+    --close-button-bg: #e11d48;
+    --close-button-hover-bg: #be123c;
+    --delete-button-bg: #e11d48;
+    --delete-button-hover-bg: #be123c;
+    --message-success-bg: rgba(34, 197, 94, 0.14);
+    --message-warning-bg: rgba(250, 204, 21, 0.14);
+    --message-error-bg: rgba(244, 63, 94, 0.16);
+    --darkened-bg: rgba(15, 23, 42, 0.95);
+    --selected-bg: rgba(34, 211, 238, 0.12);
+    --selected-row: rgba(34, 211, 238, 0.08);
+}
+
+html[data-theme="light"],
+html[data-theme="dark"] {
+    --primary: #22d3ee;
+    --header-bg: rgba(2, 6, 23, 0.94);
+}
+
+body,
+#container {
+    background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.10) 0%, transparent 24%),
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.12) 0%, transparent 28%),
+        linear-gradient(180deg, #0f172a 0%, #020617 100%);
+    color: var(--admin-text);
+}
+
+a:link,
+a:visited {
+    color: var(--link-fg);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+#header {
+    background: rgba(2, 6, 23, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--admin-border);
+    color: var(--admin-text);
+    box-shadow: 0 20px 45px rgba(2, 6, 23, 0.24);
+}
+
+.brand-shell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+    color: #082f49;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+#site-name {
+    margin: 0;
+    font-weight: 700;
+}
+
+#site-name a {
+    color: #f8fafc;
+}
+
+.brand-copy {
+    margin: 2px 0 0;
+    color: var(--admin-text-soft);
+    font-size: 12px;
+}
+
+#user-tools,
+#user-tools a,
+.view-site-link {
+    color: #cbd5e1;
+}
+
+.view-site-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid var(--admin-border);
+    text-decoration: none;
+}
+
+div.breadcrumbs {
+    background: rgba(15, 23, 42, 0.72);
+    border-bottom: 1px solid var(--admin-border);
+    color: #cbd5e1;
+}
+
+#content,
+#content-related,
+.dashboard #content {
+    color: var(--admin-text);
+}
+
+.module,
+.inline-group,
+.submit-row,
+.selector,
+#changelist-filter,
+#changelist .actions,
+.object-tools a,
+.paginator,
+.calendarbox,
+.clockbox,
+.login #content-main form,
+.messagelist li,
+.popup #content,
+.results,
+.form-row,
+.aligned .form-row,
+.submit-row a.deletelink,
+.submit-row input,
+.submit-row a,
+table thead th.sorted .text,
+table thead th .text,
+.selector-available h2,
+.selector-chosen h2 {
+    border-color: var(--admin-border);
+}
+
+.module,
+.inline-group,
+#changelist-filter,
+#changelist .actions,
+.calendarbox,
+.clockbox,
+.selector,
+.results,
+.login #content-main form {
+    background: var(--admin-surface);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(2, 6, 23, 0.2);
+}
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: rgba(15, 23, 42, 0.92);
+    color: #f8fafc;
+    border-radius: 18px 18px 0 0;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+#nav-sidebar {
+    background: rgba(2, 6, 23, 0.76);
+    border-right: 1px solid var(--admin-border);
+    backdrop-filter: blur(10px);
+}
+
+#nav-filter {
+    background: rgba(15, 23, 42, 0.94);
+    color: var(--admin-text);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+}
+
+#nav-sidebar .current-model,
+#nav-sidebar a.current-model,
+#nav-sidebar .current-app .section:link,
+#nav-sidebar .current-app .section:visited {
+    background: rgba(34, 211, 238, 0.12);
+    color: #a5f3fc;
+}
+
+table thead th,
+thead th,
+tfoot td {
+    background: rgba(15, 23, 42, 0.94);
+    color: #cbd5e1;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+tr,
+td,
+th,
+.row-form-errors,
+.last-related {
+    border-color: var(--admin-border);
+}
+
+tr:nth-child(even),
+.row1 {
+    background: rgba(15, 23, 42, 0.44);
+}
+
+tr:nth-child(odd),
+.row2 {
+    background: rgba(15, 23, 42, 0.26);
+}
+
+tr:hover td,
+tr:hover th {
+    background: rgba(34, 211, 238, 0.08);
+}
+
+input,
+textarea,
+select,
+.vTextField,
+.vLargeTextField {
+    background: rgba(15, 23, 42, 0.94);
+    border: 1px solid rgba(51, 65, 85, 1);
+    border-radius: 12px;
+    color: #e2e8f0;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--admin-brand);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.14);
+}
+
+.selector select {
+    min-height: 17em;
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button,
+.object-tools a,
+.selector-available input,
+.selector-chosen input {
+    background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+    color: #082f49;
+    border: 0;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: none;
+}
+
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+    background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.object-tools a:hover,
+a.button:hover {
+    filter: brightness(1.05);
+}
+
+.submit-row,
+.object-tools a {
+    background: transparent;
+}
+
+.submit-row {
+    padding: 0;
+    border: 0;
+}
+
+.submit-row input,
+.submit-row a,
+.submit-row .deletelink {
+    margin: 0 0 0 8px;
+}
+
+.submit-row .deletelink {
+    background: rgba(244, 63, 94, 0.18);
+    color: #fecdd3;
+    border: 1px solid rgba(244, 63, 94, 0.24);
+}
+
+.messagelist li {
+    background: rgba(15, 23, 42, 0.84);
+    color: #e2e8f0;
+    border-radius: 14px;
+}
+
+.messagelist li.success {
+    background: rgba(34, 197, 94, 0.14);
+}
+
+.messagelist li.warning {
+    background: rgba(250, 204, 21, 0.14);
+}
+
+.messagelist li.error {
+    background: rgba(244, 63, 94, 0.16);
+}
+
+.help,
+p.help,
+.helptext,
+div.help,
+form .help {
+    color: var(--admin-text-soft);
+}
+
+.quiet,
+.paginator,
+.small,
+fieldset.collapsed h2,
+fieldset.collapsed {
+    color: var(--admin-text-soft);
+}
+
+.login {
+    background:
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.10) 0%, transparent 24%),
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.12) 0%, transparent 28%),
+        linear-gradient(180deg, #0f172a 0%, #020617 100%);
+}
+
+.login #container {
+    background: transparent;
+}
+
+.login #content {
+    padding-top: 32px;
+}
+
+.login .form-row {
+    padding: 0;
+    border: 0;
+}
+
+.login .submit-row {
+    justify-content: stretch;
+}
+
+.login .submit-row input {
+    width: 100%;
+    margin-left: 0;
+}
+
+.current-app .section,
+.current-model a {
+    color: #a5f3fc;
+}
+
+.selector h2 {
+    color: #f8fafc;
+}
+
+@media (max-width: 1024px) {
+    #header {
+        display: block;
+    }
+
+    #user-tools,
+    .view-site-link {
+        margin-top: 12px;
+    }
+}
