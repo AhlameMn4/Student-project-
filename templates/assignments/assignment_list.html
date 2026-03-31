@@ -1,39 +1,39 @@
 {% extends "base.html" %}
 {% block title %}Assignments | Student Hub{% endblock %}
+{% block page_title %}Assignments{% endblock %}
 {% block content %}
-<h2 class="h4 mb-3">Assignments</h2>
-<div class="card border-0 shadow-sm">
-    <div class="table-responsive">
-        <table class="table mb-0 align-middle">
-            <thead class="table-light">
+<div class="glass rounded-2xl overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead class="bg-slate-900/80 text-slate-300">
                 <tr>
-                    <th>Title</th>
-                    <th>Course</th>
-                    <th>Type</th>
-                    <th>Mode</th>
-                    <th>Due</th>
-                    <th>Status</th>
+                    <th class="text-left px-4 py-3">Title</th>
+                    <th class="text-left px-4 py-3">Course</th>
+                    <th class="text-left px-4 py-3">Type</th>
+                    <th class="text-left px-4 py-3">Mode</th>
+                    <th class="text-left px-4 py-3">Due</th>
+                    <th class="text-left px-4 py-3">Status</th>
                 </tr>
             </thead>
             <tbody>
-                {% for assignment in assignments %}
-                    <tr>
-                        <td>{{ assignment.title }}</td>
-                        <td>{{ assignment.course.code }}</td>
-                        <td>{{ assignment.assignment_type|upper }}</td>
-                        <td>{{ assignment.submission_mode|title }}</td>
-                        <td>{{ assignment.due_at|date:"Y-m-d H:i" }}</td>
-                        <td>
-                            {% if assignment.is_published %}
-                                <span class="badge text-bg-success">Published</span>
-                            {% else %}
-                                <span class="badge text-bg-secondary">Draft</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% empty %}
-                    <tr><td colspan="6" class="text-muted">No assignments found.</td></tr>
-                {% endfor %}
+            {% for assignment in assignments %}
+                <tr class="border-t border-slate-800">
+                    <td class="px-4 py-3">{{ assignment.title }}</td>
+                    <td class="px-4 py-3">{{ assignment.course.code }}</td>
+                    <td class="px-4 py-3">{{ assignment.assignment_type|upper }}</td>
+                    <td class="px-4 py-3">{{ assignment.submission_mode|title }}</td>
+                    <td class="px-4 py-3">{{ assignment.due_at|date:"Y-m-d H:i" }}</td>
+                    <td class="px-4 py-3">
+                        {% if assignment.is_published %}
+                            <span class="px-2 py-1 rounded-lg text-xs bg-emerald-500/20 text-emerald-200">Published</span>
+                        {% else %}
+                            <span class="px-2 py-1 rounded-lg text-xs bg-slate-500/20 text-slate-200">Draft</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr class="border-t border-slate-800"><td class="px-4 py-3 text-slate-400" colspan="6">No assignments found.</td></tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

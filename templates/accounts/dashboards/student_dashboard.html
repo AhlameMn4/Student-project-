@@ -1,40 +1,27 @@
 {% extends "base.html" %}
 {% block title %}Student Dashboard{% endblock %}
+{% block page_title %}Student Dashboard{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-        <h2 class="h4 mb-1">Student Dashboard</h2>
-        <p class="text-muted mb-0">Welcome {{ request.user.full_name }}.</p>
-    </div>
+<div class="mb-6">
+    <h2 class="text-2xl font-semibold">Welcome {{ request.user.full_name }}</h2>
+    <p class="text-slate-300">Your academic overview and quick actions.</p>
 </div>
 
-<div class="row g-3">
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body">
-                <h3 class="h6">Courses</h3>
-                <p class="text-muted">Browse your major and enrolled courses.</p>
-                <a class="btn btn-sm btn-primary" href="{% url 'courses:course_list' %}">Open courses</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body">
-                <h3 class="h6">Assignments</h3>
-                <p class="text-muted">Track TP/TD/homework deadlines.</p>
-                <a class="btn btn-sm btn-primary" href="{% url 'assignments:assignment_list' %}">Open assignments</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 border-0">
-            <div class="card-body">
-                <h3 class="h6">AI Assistant</h3>
-                <p class="text-muted">Ask for guided academic help.</p>
-                <a class="btn btn-sm btn-primary" href="{% url 'ai_assistant:assistant' %}">Open assistant</a>
-            </div>
-        </div>
-    </div>
+<div class="grid md:grid-cols-3 gap-4">
+    <a href="{% url 'courses:course_list' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
+        <p class="text-slate-400 text-sm">Academic</p>
+        <h3 class="text-lg font-semibold mt-1">Courses</h3>
+        <p class="text-slate-300 mt-2 text-sm">Browse your major and enrolled courses.</p>
+    </a>
+    <a href="{% url 'assignments:assignment_list' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
+        <p class="text-slate-400 text-sm">Workload</p>
+        <h3 class="text-lg font-semibold mt-1">Assignments</h3>
+        <p class="text-slate-300 mt-2 text-sm">Track TP/TD/homework deadlines.</p>
+    </a>
+    <a href="{% url 'ai_assistant:assistant' %}" class="glass rounded-2xl p-5 hover:-translate-y-1 transition">
+        <p class="text-slate-400 text-sm">Smart Guide</p>
+        <h3 class="text-lg font-semibold mt-1">AI Assistant</h3>
+        <p class="text-slate-300 mt-2 text-sm">Get contextual help instantly.</p>
+    </a>
 </div>
 {% endblock %}
