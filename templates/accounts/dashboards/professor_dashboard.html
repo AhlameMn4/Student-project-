@@ -1,87 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Professor Dashboard{% endblock %}
 {% block page_title %}Professor Dashboard{% endblock %}
-{% block page_subtitle %}Manage teaching content, delivery, and academic communication from a single dashboard shell.{% endblock %}
+{% block page_subtitle %}Manage teaching content and evaluations.{% endblock %}
 {% block content %}
-<div class="grid gap-6 xl:grid-cols-[minmax(0,1.75fr)_minmax(320px,0.95fr)]">
-    <section class="panel relative overflow-hidden p-8">
-        <div class="absolute -right-12 top-4 h-44 w-44 rounded-full bg-brand-100 blur-3xl"></div>
-        <div class="relative">
-            <span class="soft-badge">Professor Control</span>
-            <h2 class="mt-5 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">Welcome, {{ request.user.full_name }}.</h2>
-            <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
-                This dashboard is tuned for publishing learning resources, managing assignments, and keeping academic communication clear.
-            </p>
-
-            <div class="mt-6 flex flex-wrap gap-3">
-                <a href="{% url 'courses:course_list' %}" class="btn-primary">Open teaching courses</a>
-                <a href="{% url 'assignments:assignment_list' %}" class="btn-secondary">Manage assignments</a>
-            </div>
-
-            <div class="mt-8 grid gap-4 md:grid-cols-3">
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
-                    <p class="text-sm font-medium text-slate-500">Department</p>
-                    <p class="mt-3 text-xl font-semibold text-slate-900">{{ request.user.professor_profile.department|default:"Academic Department" }}</p>
-                    <p class="mt-2 text-sm text-slate-500">Keep your dashboard aligned with your teaching unit.</p>
-                </div>
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
-                    <p class="text-sm font-medium text-slate-500">Content lane</p>
-                    <p class="mt-3 text-xl font-semibold text-slate-900">Structured</p>
-                    <p class="mt-2 text-sm text-slate-500">Course and material views now follow the same operational card pattern.</p>
-                </div>
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/90 p-5">
-                    <p class="text-sm font-medium text-slate-500">Review queue</p>
-                    <p class="mt-3 text-xl font-semibold text-slate-900">Ready</p>
-                    <p class="mt-2 text-sm text-slate-500">Assignments remain the main action path for evaluations and follow-up.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="panel p-6">
-        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-brand-600">Teaching Workflow</p>
-        <h3 class="mt-3 text-2xl font-semibold tracking-tight text-slate-900">Move from content to communication.</h3>
-        <div class="mt-6 space-y-4">
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="text-sm font-semibold text-slate-900">1. Organize your teaching catalog</p>
-                <p class="mt-2 text-sm leading-6 text-slate-500">Start in courses to keep the structure of your modules clear and current.</p>
-            </div>
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="text-sm font-semibold text-slate-900">2. Publish materials with confidence</p>
-                <p class="mt-2 text-sm leading-6 text-slate-500">Resources inherit the same dashboard style, making publishing and review faster.</p>
-            </div>
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <p class="text-sm font-semibold text-slate-900">3. Coordinate through announcements and calendar</p>
-                <p class="mt-2 text-sm leading-6 text-slate-500">Keep course and major communication visible from the same interface family.</p>
-            </div>
-        </div>
-    </section>
+<h2 class="text-2xl font-semibold">Welcome {{ request.user.full_name }}</h2>
+<p class="mb-6 text-slate-300">Manage teaching content and evaluations.</p>
+<div class="grid gap-4 md:grid-cols-2">
+    <a href="{% url 'courses:course_list' %}" class="glass rounded-2xl p-5 transition hover:-translate-y-1">
+        <h3 class="text-lg font-semibold">Teaching Courses</h3>
+        <p class="mt-2 text-sm text-slate-300">Manage your course spaces and materials.</p>
+    </a>
+    <a href="{% url 'assignments:assignment_list' %}" class="glass rounded-2xl p-5 transition hover:-translate-y-1">
+        <h3 class="text-lg font-semibold">Assignments</h3>
+        <p class="mt-2 text-sm text-slate-300">Create assignments and review submissions.</p>
+    </a>
 </div>
-
-<section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-    <a href="{% url 'courses:course_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
-        <span class="soft-badge">Catalog</span>
-        <h3 class="mt-5 text-xl font-semibold text-slate-900">Teaching Courses</h3>
-        <p class="mt-3 text-sm leading-6 text-slate-500">Access the courses assigned to you and keep the teaching structure easy to scan.</p>
-        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">View courses</span>
-    </a>
-    <a href="{% url 'courses:material_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
-        <span class="soft-badge">Resources</span>
-        <h3 class="mt-5 text-xl font-semibold text-slate-900">Study Materials</h3>
-        <p class="mt-3 text-sm leading-6 text-slate-500">Review the resources students rely on and keep your material stream organized.</p>
-        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Open materials</span>
-    </a>
-    <a href="{% url 'assignments:assignment_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
-        <span class="soft-badge">Assessment</span>
-        <h3 class="mt-5 text-xl font-semibold text-slate-900">Assignments</h3>
-        <p class="mt-3 text-sm leading-6 text-slate-500">Keep deadlines, modes, and publication state visible in one evaluation board.</p>
-        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Review assignments</span>
-    </a>
-    <a href="{% url 'communications:announcement_list' %}" class="panel p-6 transition hover:-translate-y-1 hover:border-slate-300">
-        <span class="soft-badge">Communication</span>
-        <h3 class="mt-5 text-xl font-semibold text-slate-900">Announcements</h3>
-        <p class="mt-3 text-sm leading-6 text-slate-500">Broadcast course or major updates through the same polished dashboard language.</p>
-        <span class="mt-6 inline-flex text-sm font-semibold text-brand-600">Open announcements</span>
-    </a>
-</section>
 {% endblock %}
