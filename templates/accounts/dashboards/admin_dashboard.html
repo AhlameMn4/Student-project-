@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome {{ request.user.full_name }}.</p>
+<p>Use Django admin to manage majors, semesters, courses, professors, and global consistency.</p>
+<p><a href="/admin/">Open Admin Panel</a></p>
+{% endblock %}
