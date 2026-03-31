@@ -22,6 +22,8 @@ from django.urls import include, path
 admin.site.site_header = "Student Hub Admin"
 admin.site.site_title = "Student Hub Admin"
 admin.site.index_title = "Platform control center"
+admin.site.index_template = "admin/index.html"
+admin.site.login_template = "admin/login.html"
 
 urlpatterns = [
     path('', include('common.urls')),
