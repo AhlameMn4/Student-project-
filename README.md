@@ -1,3 +1,4 @@
+
 # Student Hub (Django + Neon + Vercel)
 
 ## First deployment (Vercel + GitHub)
@@ -41,3 +42,6 @@ Then login at:
 
 - Media uploads are production-ready when `CLOUDINARY_URL` is set. Without it, local media storage is used (not suitable for Vercel production).
 - Static files are served using WhiteNoise configuration.
+=======
+# Student-project-
+>>>>>>> c8f9e1e69e188dee0de39a5dcdcde9ad06899fcd
